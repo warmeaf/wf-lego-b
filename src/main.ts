@@ -1,12 +1,13 @@
 import { createApp } from 'vue'
-import { createPinia } from 'pinia'
-import { Button, Layout, Row, Col, Card, Tag } from 'ant-design-vue'
+import pinia from './store'
+import router from '@/router/index'
+import Antd from 'ant-design-vue'
 import App from './App.vue'
 import './main.css'
 
-const pinia = createPinia()
 const app = createApp(App)
-
-app.use(Button).use(Layout).use(Row).use(Col).use(Card).use(Tag)
 app.use(pinia)
+app.use(router)
+app.use(Antd)
+
 app.mount('#app')
