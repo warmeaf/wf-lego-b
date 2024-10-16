@@ -33,9 +33,11 @@ const list = ref([
                 <div
                   class="absolute inset-0 flex items-center justify-center transition duration-200 ease-in-out opacity-0 tip bg-black-80"
                 >
-                  <a-button size="large" type="primary">
-                    使用该模板创建
-                  </a-button>
+                  <router-link to="/template">
+                    <a-button size="large" type="primary">
+                      使用该模板创建
+                    </a-button>
+                  </router-link>
                 </div>
               </div>
             </template>
