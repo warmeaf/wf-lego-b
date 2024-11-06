@@ -6,6 +6,9 @@ import tseslint from 'typescript-eslint'
 // vue文件解析器
 import vueParser from 'vue-eslint-parser'
 export default tseslint.config({
+  rules: {
+    '@typescript-eslint/no-explicit-any': 'warn' // 配置 no-explicit-any 规则
+  },
   // tseslint.config添加了extends扁平函数，直接用。否则是eslint9.0版本是没有extends的
   extends: [
     eslint.configs.recommended,
