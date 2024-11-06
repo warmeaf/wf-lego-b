@@ -6,8 +6,6 @@ module.exports = {
         beforeEach: [require('postcss-for'), require('postcss-color-mix')]
       }
     }),
-    require('tailwindcss/nesting'),
-    require('autoprefixer'),
-    require('tailwindcss')
+    require('autoprefixer')
   ]
 }

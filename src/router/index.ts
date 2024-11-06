@@ -1,21 +1,33 @@
-import { createWebHistory, createRouter } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
+import type { RouteRecordRaw } from 'vue-router'
+import LegoIndex from '@/views/LegoIndex.vue'
+import LegoHome from '@/views/LegoHome.vue'
 
-import WfHome from '@/views/WfHome.vue'
-import WfEditor from '@/views/WfEditor.vue'
-import TemplateDetail from '@/views/TemplateDetail.vue'
-const routes = [
-  { path: '/', name: 'home', component: WfHome },
-  { path: '/template', name: 'template', component: TemplateDetail },
+const routes: Array<RouteRecordRaw> = [
   {
-    path: '/editor',
-    name: 'editor',
-    component: WfEditor
+    path: '/',
+    name: 'Index',
+    component: LegoIndex,
+    children: [
+      {
+        path: '',
+        name: 'Home',
+        component: LegoHome,
+        meta: { title: '欢迎来到慕课乐高' }
+      }
+    ]
   }
 ]
-
 const router = createRouter({
   history: createWebHistory(),
-  routes
+  routes,
+  scrollBehavior: (to, from, savedPosition) => {
+    if (savedPosition) {
+      return savedPosition
+    } else {
+      return Promise.resolve({ left: 0, top: 0 })
+    }
+  }
 })
 
 export default router

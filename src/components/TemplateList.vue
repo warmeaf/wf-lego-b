@@ -1,69 +1,164 @@
-<script setup lang="ts">
-import { ref } from 'vue'
-import { UserOutlined } from '@ant-design/icons-vue'
-
-const list = ref([
-  { id: 1, name: '1' },
-  { id: 2, name: '2' },
-  { id: 3, name: '3' },
-  { id: 4, name: '4' },
-  { id: 5, name: '5' },
-  { id: 6, name: '6' }
-])
-</script>
-
 <template>
-  <div>
-    <a-row class="mx-neg-8">
-      <a-col
-        class="relative px-2 mb-5"
-        :span="6"
-        v-for="item in list"
-        :key="item.id"
-      >
-        <a class="card-wrapper">
-          <a-card hoverable class="rounded-xl">
-            <template #cover>
-              <div class="relative overflow-hidden rounded-t-xl h-96">
-                <img
-                  class="w-full"
-                  alt="example"
-                  src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-                />
-                <div
-                  class="absolute inset-0 flex items-center justify-center transition duration-200 ease-in-out opacity-0 tip bg-black-80"
-                >
-                  <router-link to="/template">
-                    <a-button size="large" type="primary">
-                      使用该模板创建
-                    </a-button>
-                  </router-link>
-                </div>
+  <div class="template-list-component">
+    <a-row :gutter="16">
+      <a-col :span="6" v-for="item in list" :key="item.id" class="poster-item">
+        <router-link
+          :to="type === 'work' ? `/editor/${item.id}` : `/template/${item.id}`"
+        >
+          <a-card hoverable>
+            <template v-slot:cover>
+              <img :src="item.coverImg" v-if="item.coverImg" />
+              <img
+                src="http://typescript-vue.oss-cn-beijing.aliyuncs.com/vue-marker/5f81cca3f3bf7a0e1ebaf885.png"
+                v-else
+              />
+              <!-- <div class="blur-image">
+                <img :src="item.coverImg"  v-if="item.coverImg" />
+                <img src="http://typescript-vue.oss-cn-beijing.aliyuncs.com/vue-marker/5f81cca3f3bf7a0e1ebaf885.png"  v-else />
+              </div> -->
+              <div class="hover-item">
+                <a-button size="large" type="primary">
+                  {{ type === 'work' ? '编辑该作品' : '使用该模版创建' }}
+                </a-button>
               </div>
             </template>
-            <a-card-meta title="Europe Street beat">
-              <template #description>
-                <div class="flex items-center justify-between">
-                  <span>作者：test</span>
-                  <span class="flex items-center">
+            <a-card-meta :title="item.title">
+              <template v-slot:description>
+                <div class="description-detail">
+                  <span v-if="item.user">作者：{{ item.user.nickName }}</span>
+                  <span class="user-number">
                     <UserOutlined />
-                    <span class="pl-1">23423</span>
+                    {{ item.copiedCount }}
                   </span>
                 </div>
               </template>
             </a-card-meta>
           </a-card>
-          <div class="absolute left-1.5 top-neg-4">
-            <a-tag color="red">HOT</a-tag>
+          <div class="tag-list">
+            <a-tag color="red" v-if="item.isHot">HOT</a-tag>
+            <a-tag color="green" v-if="item.isNew">NEW</a-tag>
           </div>
-        </a>
+        </router-link>
       </a-col>
     </a-row>
   </div>
 </template>
 
-<style scoped>
-.card-wrapper:hover .tip {
-  opacity: 1;
+<script lang="ts">
+import { defineComponent } from 'vue'
+import type { PropType } from 'vue'
+import { UserOutlined } from '@ant-design/icons-vue'
+import type { WorkProp } from '@/store/works'
+export default defineComponent({
+  name: 'template-list',
+  components: {
+    UserOutlined
+  },
+  props: {
+    list: {
+      type: Array as PropType<WorkProp[]>,
+      required: true
+    },
+    type: {
+      type: String,
+      default: 'work'
+    }
+  }
+})
+</script>
+
+<style>
+.poster-item {
+  position: relative;
+  margin-bottom: 20px;
+}
+.poster-item .ant-card {
+  border-radius: 12px;
+}
+.tag-list {
+  position: absolute;
+  top: -4px;
+  left: 6px;
+}
+.poster-item .ant-card-cover {
+  height: 390px;
+}
+.poster-item .ant-card-cover > img {
+  width: 100%;
+}
+.poster-item .blur-image {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  padding-top: 15px;
+}
+.blur-image > img {
+  width: 70%;
+  text-align: center;
+  margin: 0 auto;
+}
+.poster-item .ant-card-hoverable {
+  box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.1);
+}
+.poster-item .ant-card-body {
+  padding: 0;
+}
+.poster-item .ant-card-meta {
+  margin: 0;
+}
+.poster-item .ant-card-meta-title {
+  color: #333;
+  padding: 10px 12px;
+  border-bottom: 1px solid #f2f2f2;
+  margin-bottom: 0 !important;
+}
+.description-detail {
+  display: flex;
+  justify-content: space-between;
+  padding: 13px 12px;
+  color: #999;
+}
+.user-number {
+  font-weight: bold;
+}
+.poster-title {
+  height: 70px;
+}
+.poster-title h2 {
+  margin-bottom: 0px;
+}
+.poster-item .ant-card-cover {
+  position: relative;
+  overflow: hidden;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+.poster-item .ant-card-cover img {
+  transition: all ease-in 0.2s;
+}
+.hover-item {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  background: rgba(0, 0, 0, 0.8);
+  align-items: center;
+  justify-content: center;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+.poster-item:hover .hover-item {
+  display: flex;
+}
+.poster-item:hover img {
+  transform: scale(1.25);
+}
+.barcode-container img {
+  border-radius: 0;
 }
 </style>
