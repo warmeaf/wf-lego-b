@@ -38,7 +38,7 @@
         <ul class="list-inline mb-0" :class="{ 'extra-margin': !isHomePage }">
           <li class="list-inline-item">
             © xxx版权所有 |
-            <a href="#" target="_blank">津ICP备xxxxxx号-2</a>
+            <a href="#" target="_blank">皖ICP备xxxxxx号-2</a>
           </li>
         </ul>
       </a-layout-footer>
