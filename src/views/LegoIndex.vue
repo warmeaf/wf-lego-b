@@ -19,7 +19,7 @@
       <a-layout-content v-if="isHomePage" class="home-layout">
         <router-view></router-view>
       </a-layout-content>
-      <a-layout-content style="padding: 0 50px" v-else>
+      <a-layout-content v-else style="padding: 0 50px">
         <a-layout style="padding: 24px 0; background: #fff">
           <a-layout-content
             :style="{
