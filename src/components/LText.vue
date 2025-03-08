@@ -7,25 +7,24 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 import { pick } from 'lodash-es'
+import {
+  transformToComponentProps,
+  textDefaultProps,
+  textStylePropNames
+} from '@/defaultProps'
 
 const props = defineProps({
-  text: {
-    type: String
-  },
-  // 样式属性可以有很多
-  fontSize: {
-    type: String
-  },
   tag: {
     type: String,
     default: 'span'
-  }
+  },
+  ...transformToComponentProps(textDefaultProps)
 })
 
 // 重用并且简化
 // 抽离并且获得 styleProps
 const styleProps = computed(() => {
-  return pick(props, ['fontSize'])
+  return pick(props, textStylePropNames)
 })
 </script>
 

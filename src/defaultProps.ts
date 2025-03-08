@@ -1,4 +1,4 @@
-import { mapValues } from 'lodash-es'
+import { mapValues, without } from 'lodash-es'
 interface DefaultPropsType {
   [key: string]: {
     props: object
@@ -6,7 +6,7 @@ interface DefaultPropsType {
   }
 }
 
-// the common default props, all the components should have these props
+// 根据需求方案，将通用属性抽离出来
 export const commonDefaultProps = {
   // actions
   actionType: '',
@@ -32,8 +32,10 @@ export const commonDefaultProps = {
   top: '0',
   right: '0'
 }
+// 这些是文本的特有属性
 export const textDefaultProps = {
   // basic props - font styles
+  text: '',
   fontSize: '14px',
   fontFamily: '',
   fontWeight: 'normal',
@@ -56,7 +58,7 @@ export const imageDefaultProps = {
 export const componentsDefaultProps: DefaultPropsType = {
   'l-text': {
     props: {
-      text: '正文内容',
+      // text: '正文内容',
       ...textDefaultProps,
       fontSize: '14px',
       width: '125px',
@@ -78,6 +80,29 @@ export const componentsDefaultProps: DefaultPropsType = {
   }
 }
 
+// l-text样式名称
+export const textStylePropNames = without(
+  Object.keys(textDefaultProps),
+  'actionType',
+  'url',
+  'text'
+)
+
+/**
+ * 将普通的 props 对象转换为 Vue 组件 props 配置对象
+ * @param props - 原始的 props 对象
+ * @returns 返回符合 Vue props 选项格式的对象，包含 type 和 default 属性
+ * @example
+ * // 输入:
+ * const props = { text: 'hello' }
+ * // 输出:
+ * {
+ *   text: {
+ *     type: String,
+ *     default: 'hello'
+ *   }
+ * }
+ */
 export const transformToComponentProps = (props: { [key: string]: any }) => {
   return mapValues(props, (item: any) => {
     return {
