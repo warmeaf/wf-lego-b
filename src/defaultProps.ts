@@ -103,12 +103,14 @@ export const textStylePropNames = without(
  *   }
  * }
  */
-export const transformToComponentProps = (props: { [key: string]: any }) => {
-  return mapValues(props, (item: any) => {
+export const transformToComponentProps = <T extends { [key: string]: any }>(
+  props: T
+) => {
+  return mapValues(props, (item) => {
     return {
       type: item.constructor,
       default: item
     }
-  }) as { [key: string]: any }
+  })
 }
 export default componentsDefaultProps
