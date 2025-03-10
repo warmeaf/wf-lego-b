@@ -1,17 +1,23 @@
 <template>
-  <component :is="tag" :style="styleProps" class="l-text-component">
+  <component
+    :is="tag"
+    :style="styleProps"
+    class="l-text-component"
+    @click="handleClick"
+  >
     {{ text }}
   </component>
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue'
-import { pick } from 'lodash-es'
+// import { computed } from 'vue'
+// import { pick } from 'lodash-es'
 import {
   transformToComponentProps,
   textDefaultProps,
   textStylePropNames
 } from '@/defaultProps'
+import useComponentCommon from '../hooks/useComponentCommon'
 
 const props = defineProps({
   tag: {
@@ -21,11 +27,15 @@ const props = defineProps({
   ...transformToComponentProps(textDefaultProps)
 })
 
-// 重用并且简化
+// 其他组件也会有这样的逻辑，所以需要重用并且简化
 // 抽离并且获得 styleProps
-const styleProps = computed(() => {
-  return pick(props, textStylePropNames)
-})
+// const styleProps = computed(() => {
+//   return pick(props, textStylePropNames)
+// })
+const { styleProps, handleClick } = useComponentCommon(
+  props,
+  textStylePropNames
+)
 </script>
 
 <style scoped>

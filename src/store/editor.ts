@@ -74,7 +74,13 @@ const testComponents: ComponentData[] = [
     name: 'LText'
   },
   {
-    props: { text: 'Hello World', fontSize: '14px', tag: 'h4' },
+    props: {
+      text: 'Hello World',
+      fontSize: '14px',
+      tag: 'h4',
+      actionType: 'url',
+      url: 'https://www.deepseek.com'
+    },
     id: uuidv4(),
     name: 'LText'
   }
