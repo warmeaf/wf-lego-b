@@ -1,6 +1,11 @@
 <template>
   <div class="create-components-list">
-    <div v-for="(item, index) in list" :key="index" @click="handleClick(item)">
+    <div
+      v-for="(item, index) in list"
+      :key="index"
+      class="component-item"
+      @click="handleClick(item)"
+    >
       <l-text v-bind="item" />
     </div>
   </div>
@@ -13,9 +18,9 @@ defineProps({
     required: true
   }
 })
-const emits = defineEmits(['click'])
+const emits = defineEmits(['item-click'])
 
-const handleClick = (item) => {
-  emits('click', item)
+const handleClick = (data) => {
+  emits('item-click', data)
 }
 </script>

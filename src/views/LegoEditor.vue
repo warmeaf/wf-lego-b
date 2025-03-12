@@ -13,7 +13,7 @@
     </a-layout>
     <a-layout>
       <a-layout-sider width="300" style="background: #fff">
-        <components-list :list="list" @click="handleItemClick" />
+        <components-list :list="list" @item-click="addItem" />
       </a-layout-sider>
       <a-layout style="padding: 0 24px 24px">
         <p>画布</p>
@@ -45,7 +45,7 @@ const editorStore = useEditorStore()
 const components = editorStore.components
 const list = ref(defaultTextTemplates)
 
-const handleItemClick = (props) => {
+const addItem = (props) => {
   editorStore.addComponent(props)
 }
 </script>
