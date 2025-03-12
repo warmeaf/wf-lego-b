@@ -12,7 +12,9 @@
       </a-layout-header>
     </a-layout>
     <a-layout>
-      <a-layout-sider width="300" style="background: #fff">组件</a-layout-sider>
+      <a-layout-sider width="300" style="background: #fff">
+        <components-list :list="list" @click="handleItemClick" />
+      </a-layout-sider>
       <a-layout style="padding: 0 24px 24px">
         <p>画布</p>
         <component
@@ -34,10 +36,18 @@
 </template>
 
 <script lang="ts" setup>
+import { ref } from 'vue'
+import ComponentsList from '@/components/ComponentsList.vue'
+import { defaultTextTemplates } from '@/defaultTemplates'
 import { useEditorStore } from '@/store/editor'
 const editorStore = useEditorStore()
 
 const components = editorStore.components
+const list = ref(defaultTextTemplates)
+
+const handleItemClick = (props) => {
+  editorStore.addComponent(props)
+}
 </script>
 
 <style>

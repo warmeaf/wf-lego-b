@@ -46,7 +46,7 @@ export const textDefaultProps = {
   color: '#000000',
   backgroundColor: '',
   ...commonDefaultProps,
-  width: '318px'
+  width: '300px'
 }
 
 export const imageDefaultProps = {

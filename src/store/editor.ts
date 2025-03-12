@@ -77,9 +77,7 @@ const testComponents: ComponentData[] = [
     props: {
       text: 'Hello World',
       fontSize: '14px',
-      tag: 'h4',
-      actionType: 'url',
-      url: 'https://www.deepseek.com'
+      tag: 'h4'
     },
     id: uuidv4(),
     name: 'LText'
@@ -90,5 +88,15 @@ export const useEditorStore = defineStore('editor', {
   state: () => ({
     components: testComponents,
     currentElement: ''
-  })
+  }),
+  actions: {
+    addComponent(props) {
+      const component: ComponentData = {
+        props,
+        id: uuidv4(),
+        name: 'LText'
+      }
+      this.components.push(component)
+    }
+  }
 })
