@@ -1,12 +1,10 @@
 import { computed } from 'vue'
 import { pick } from 'lodash-es'
 
-const useComponentCommon = <
-  T extends {
-    [key: string]: any
-  }
->(
-  props: T,
+import type { TextComponentProps } from '@/defaultProps'
+
+const useComponentCommon = (
+  props: Readonly<Partial<TextComponentProps>>,
   picks: string[]
 ) => {
   const styleProps = computed(() => {

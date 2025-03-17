@@ -37,16 +37,31 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue'
+import { omit } from 'lodash-es'
 import ComponentsList from '@/components/ComponentsList.vue'
 import { defaultTextTemplates } from '@/defaultTemplates'
 import { useEditorStore } from '@/store/editor'
+import type { TextComponentProps } from '@/defaultProps'
+
 const editorStore = useEditorStore()
 
 const components = editorStore.components
-const list = ref(defaultTextTemplates)
+const list = ref<
+  Partial<
+    TextComponentProps & {
+      tag: string
+    }
+  >[]
+>(defaultTextTemplates)
 
-const addItem = (props) => {
-  editorStore.addComponent(props)
+const addItem = (
+  props: Partial<
+    TextComponentProps & {
+      tag: string
+    }
+  >
+) => {
+  editorStore.addComponent(omit(props, ['tag']))
 }
 </script>
 

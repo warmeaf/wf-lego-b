@@ -1,8 +1,10 @@
 import { defineStore } from 'pinia'
 import { v4 as uuidv4 } from 'uuid'
 
+import type { TextComponentProps } from '@/defaultProps'
+
 export interface ComponentData {
-  props: { [key: string]: any }
+  props: { [key: string]: string }
   id: string
   name: string
   layerName?: string
@@ -10,8 +12,8 @@ export interface ComponentData {
   isLocked?: boolean
 }
 export interface PageData {
-  props: { [key: string]: any }
-  setting: { [key: string]: any }
+  props: { [key: string]: string }
+  setting: { [key: string]: string }
   id?: number
   title?: string
   desc?: string
@@ -37,13 +39,13 @@ export interface ChannelProps {
   name: string
   workId: number
 }
-export interface HistoryProps {
-  id: string
-  componentId?: string
-  type: 'add' | 'delete' | 'modify'
-  data: any
-  index?: number
-}
+// export interface HistoryProps {
+//   id: string
+//   componentId?: string
+//   type: 'add' | 'delete' | 'modify'
+//   data: any
+//   index?: number
+// }
 export interface EditProps {
   // 页面所有组件
   components: ComponentData[]
@@ -62,7 +64,7 @@ export interface EditProps {
   // 当前 work 的 channels
   channels: ChannelProps[]
   // 当前操作的历史记录
-  histories: HistoryProps[]
+  // histories: HistoryProps[]
   // 当前历史记录的操作位置
   historyIndex: number
 }
@@ -90,7 +92,7 @@ export const useEditorStore = defineStore('editor', {
     currentElement: ''
   }),
   actions: {
-    addComponent(props) {
+    addComponent(props: Partial<TextComponentProps>) {
       const component: ComponentData = {
         props,
         id: uuidv4(),

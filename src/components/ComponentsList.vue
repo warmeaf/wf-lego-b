@@ -12,15 +12,30 @@
 </template>
 
 <script lang="ts" setup>
+import type { PropType } from 'vue'
+import type { TextComponentProps } from '@/defaultProps'
+
 defineProps({
   list: {
-    type: Array,
+    type: Array as PropType<
+      Partial<
+        TextComponentProps & {
+          tag: string
+        }
+      >[]
+    >,
     required: true
   }
 })
 const emits = defineEmits(['item-click'])
 
-const handleClick = (data) => {
+const handleClick = (
+  data: Partial<
+    TextComponentProps & {
+      tag: string
+    }
+  >
+) => {
   emits('item-click', data)
 }
 </script>
