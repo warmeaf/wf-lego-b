@@ -70,20 +70,20 @@ export interface EditProps {
 }
 
 const testComponents: ComponentData[] = [
-  {
-    props: { text: 'Hello World', fontSize: '24px', tag: 'h1' },
-    id: uuidv4(),
-    name: 'LText'
-  },
-  {
-    props: {
-      text: 'Hello World',
-      fontSize: '14px',
-      tag: 'h4'
-    },
-    id: uuidv4(),
-    name: 'LText'
-  }
+  // {
+  //   props: { text: 'Hello World', fontSize: '24px', tag: 'h1' },
+  //   id: uuidv4(),
+  //   name: 'LText'
+  // },
+  // {
+  //   props: {
+  //     text: 'Hello World',
+  //     fontSize: '14px',
+  //     tag: 'h4'
+  //   },
+  //   id: uuidv4(),
+  //   name: 'LText'
+  // }
 ]
 
 export const useEditorStore = defineStore('editor', {
@@ -91,6 +91,11 @@ export const useEditorStore = defineStore('editor', {
     components: testComponents,
     currentElement: ''
   }),
+  getters: {
+    currentComponent: (state) => {
+      return state.components.find((c) => c.id === state.currentElement)
+    }
+  },
   actions: {
     addComponent(props: Partial<TextComponentProps>) {
       const component: ComponentData = {
@@ -99,6 +104,9 @@ export const useEditorStore = defineStore('editor', {
         name: 'LText'
       }
       this.components.push(component)
+    },
+    setActive(id: string) {
+      this.currentElement = id
     }
   }
 })

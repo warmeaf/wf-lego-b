@@ -19,6 +19,18 @@ export const defaultTextTemplates = [
   },
   {
     text: '按钮内容',
-    tag: 'a-button'
+    tag: 'button',
+    color: '#ffffff',
+    backgroundColor: '#1890ff',
+    borderWidth: '1px',
+    borderColor: '#1890ff',
+    borderStyle: 'solid',
+    borderRadius: '2px',
+    paddingLeft: '10px',
+    paddingRight: '10px',
+    paddingTop: '5px',
+    paddingBottom: '5px',
+    width: '100px',
+    textAlign: 'center'
   }
 ]

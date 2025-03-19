@@ -16,36 +16,45 @@
         <components-list :list="list" @item-click="addItem" />
       </a-layout-sider>
       <a-layout style="padding: 0 24px 24px">
-        <p>画布</p>
-        <component
+        <editor-wrapper
           v-for="item in components"
           :key="item.id"
-          :is="item.name"
-          v-bind="item.props"
-        />
+          :id="item.id"
+          :active="item.id === currentComponent?.id"
+          @set-active="setActive"
+        >
+          <component :key="item.id" :is="item.name" v-bind="item.props" />
+        </editor-wrapper>
       </a-layout>
       <a-layout-sider
         width="300"
         style="background: #fff"
         class="settings-panel"
       >
-        属性
+        <pre>
+          {{ currentComponent?.props }}
+        </pre>
       </a-layout-sider>
     </a-layout>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
-import { omit } from 'lodash-es'
+import { ref, computed } from 'vue'
 import ComponentsList from '@/components/ComponentsList.vue'
+import EditorWrapper from '@/components/EditorWrapper.vue'
 import { defaultTextTemplates } from '@/defaultTemplates'
 import { useEditorStore } from '@/store/editor'
 import type { TextComponentProps } from '@/defaultProps'
+import type { ComponentData } from '@/store/editor'
 
 const editorStore = useEditorStore()
 
-const components = editorStore.components
+const components = computed(() => editorStore.components)
+const currentComponent = computed<ComponentData | undefined>(
+  () => editorStore.currentComponent
+)
+
 const list = ref<
   Partial<
     TextComponentProps & {
@@ -61,7 +70,13 @@ const addItem = (
     }
   >
 ) => {
-  editorStore.addComponent(omit(props, ['tag']))
+  editorStore.addComponent(props)
+}
+const setActive = (id: string) => {
+  editorStore.setActive(id)
+  setTimeout(() => {
+    console.log(currentComponent.value)
+  }, 0)
 }
 </script>
 

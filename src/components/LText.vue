@@ -41,7 +41,7 @@ const { styleProps, handleClick } = useComponentCommon(
 <style scoped>
 h2.l-text-component,
 p.l-text-component {
-  margin-bottom: 0;
+  margin: 0;
 }
 button.l-text-component {
   padding: 5px 10px;
