@@ -31,6 +31,10 @@
         style="background: #fff"
         class="settings-panel"
       >
+        <props-table
+          v-if="currentComponent && currentComponent.props"
+          :props="currentComponent.props"
+        />
         <pre>
           {{ currentComponent?.props }}
         </pre>
@@ -43,6 +47,7 @@
 import { ref, computed } from 'vue'
 import ComponentsList from '@/components/ComponentsList.vue'
 import EditorWrapper from '@/components/EditorWrapper.vue'
+import PropsTable from '@/components/PropsTable.vue'
 import { defaultTextTemplates } from '@/defaultTemplates'
 import { useEditorStore } from '@/store/editor'
 import type { TextComponentProps } from '@/defaultProps'
