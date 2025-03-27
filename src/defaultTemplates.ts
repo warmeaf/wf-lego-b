@@ -3,6 +3,7 @@ export const defaultTextTemplates = [
     text: '大标题',
     fontSize: '30px',
     fontWeight: 'bold',
+    lineHeight: '1',
     tag: 'h2'
   },
   {

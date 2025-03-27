@@ -1,7 +1,17 @@
 <template>
   <div class="props-table">
     <div v-for="(value, key) in finalProps" :key="key" class="prop-item">
-      <component v-if="value" :is="value.component" :value="value.value" />
+      <span v-if="value.text" class="label">
+        {{ value.text }}
+      </span>
+      <div class="prop-component">
+        <component
+          v-if="value"
+          :is="value.component"
+          v-bind="value.extralProps"
+          :value="value.value"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -35,7 +45,21 @@ const finalProps = computed(() => {
       }
       return result
     },
-    {} as PropsToForms
+    {} as Required<PropsToForms>
   )
 })
 </script>
+
+<style scoped>
+.prop-item {
+  display: flex;
+  margin-bottom: 10px;
+  align-items: center;
+}
+.label {
+  width: 28%;
+}
+.prop-component {
+  width: 70%;
+}
+</style>
