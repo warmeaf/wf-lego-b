@@ -32,6 +32,7 @@ export const defaultTextTemplates = [
     paddingTop: '5px',
     paddingBottom: '5px',
     width: '100px',
-    textAlign: 'center'
+    textAlign: 'center',
+    fontFamily: ''
   }
 ]
